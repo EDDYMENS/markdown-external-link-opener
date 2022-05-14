@@ -55,15 +55,18 @@
         get: (searchParams, prop) => searchParams.get(prop),
     });
 
-    //check if external link is provided
-    if(!params.to) {
+    //make link absolute
+    var link = (params.to.startsWith('http'))? params.to : '//'+params.to;
+    
+    //check if link is provided
+    if(!link) {
         if(document.referrer.length) {
             history.back();
         }
         window.location.href = 'https://github.com/EDDYMENS/markdown-external-link-opener/blob/main/README.md';
     }
     // open defined link in a new tab
-    window.open(params.to, '_blank');
+    window.open(link, '_blank');
 
     // Show user external link incase of popup block
     let browser_active = ((typeof document.hasFocus != 'undefined' ? document.hasFocus() : 1) ? 1 : 0);
@@ -72,9 +75,9 @@
         mainPan.style.display = 'block';
         externalAnchorLink = document.getElementById('external-link');
         externalLinkDisplay = document.getElementById('link-display');
-        externalAnchorLink.href = params.to;
-        externalLinkDisplay.href = params.to;
-        externalLinkDisplay.text = params.to;
+        externalAnchorLink.href = link;
+        externalLinkDisplay.href = link;
+        externalLinkDisplay.text = link;
     } else {
         history.back();
     }
