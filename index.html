@@ -55,16 +55,18 @@
         get: (searchParams, prop) => searchParams.get(prop),
     });
 
-    //make link absolute
-    var link = (params.to.startsWith('http'))? params.to : '//'+params.to;
-    
+   
     //check if link is provided
-    if(!link) {
+    if(!params.to) {
         if(document.referrer.length) {
             history.back();
         }
         window.location.href = 'https://github.com/EDDYMENS/markdown-external-link-opener/blob/main/README.md';
     }
+
+    //make link absolute
+    var link = (params.to.startsWith('http'))? params.to : '//'+params.to;
+ 
     // open defined link in a new tab
     window.open(link, '_blank');
 
